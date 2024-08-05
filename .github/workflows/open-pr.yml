@@ -9,5 +9,5 @@ on:
       - synchronize
 jobs:
   process_translations:
-    uses: jimmysafe/lokalise-actions/.github/workflows/translations-open-pr/action.yml@main-v1
+    uses: jimmysafe/lokalise-actions/translations-open-pr@main-v1
     secrets: inherit
