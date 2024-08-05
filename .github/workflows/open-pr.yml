@@ -1,0 +1,13 @@
+name: New Translations
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+jobs:
+  process_translations:
+    uses: jimmysafe/lokalise-actions/translations-open-pr@main
+    secrets: inherit
