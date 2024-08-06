@@ -32,8 +32,8 @@ jobs:
         run: echo "CHANGED_FILES=${{ steps.changed-files.outputs.locales_all_modified_files }}" >> $GITHUB_OUTPUT
 
   process_translations:
-    # needs: [check_changed_files]
-    # if: ${{needs.check_changed_files.outputs.changed_files != ''}}
+    needs: [check_changed_files]
+    if: ${{needs.check_changed_files.outputs.changed_files != ''}}
     runs-on: ubuntu-latest
     steps:
       - name: lokalise
