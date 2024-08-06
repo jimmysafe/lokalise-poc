@@ -8,7 +8,7 @@ on:
       - opened
       - synchronize
 jobs:
-  open_pr:
+  process_translations:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -18,6 +18,3 @@ jobs:
 
       - name: lokalise
         uses: jimmysafe/lokalise-actions/translations-open-pr@main-v1
-        with:
-          parmam1: aaaa
-          param2: bbbb
