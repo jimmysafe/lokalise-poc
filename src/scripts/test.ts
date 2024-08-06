@@ -38,7 +38,7 @@ async function get_task() {
 }
 
 create_branch();
-// upload_files();
+upload_files();
 // get_task();
 // crea_task();
 // merge_branch();
