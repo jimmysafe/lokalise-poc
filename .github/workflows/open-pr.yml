@@ -19,7 +19,6 @@ jobs:
         id: last_successful_commit_push
         with:
           main-branch-name: ${{ steps.branch-name.outputs.current_branch }} # Get the last successful commit for the current branch.
-          last-successful-event: "push"
 
       - name: Run changed-files with the commit of the last successful push event on current branch
         id: changed-files-base-sha-push
