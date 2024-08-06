@@ -1,11 +1,10 @@
 name: Release Translations
 on:
-  workflow_dispatch:
   pull_request:
     branches:
-      - main
+      - master
     types:
-      - synchronize
+      - closed
 jobs:
   process_translations:
     runs-on: ubuntu-latest
