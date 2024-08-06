@@ -8,6 +8,16 @@ on:
       - opened
       - synchronize
 jobs:
-  process_translations:
-    uses: jimmysafe/lokalise-actions/translations-open-pr@main-v1
-    secrets: inherit
+  open_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: lokalise
+        uses: jimmysafe/lokalise-actions/translations-open-pr@main-v1
+        with:
+          parmam1: aaaa
+          param2: bbbb
