@@ -13,9 +13,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: lokalise
+
+      - name: Install Lokalise CLI
+        run: |
+          curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
+
+      - name: Merge and Delete Branch
         uses: jimmysafe/lokalise-actions/translations-release@main-v1
         with:
           lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
           lokaliseProjectId: 175820916698d77c9ef940.96307178
           token: ${{ secrets.MY_TOKEN}}
+
+      - name: Download Translations
+        run: |
+          lokalise2 \
+            --token f65180bcef55eb0fa6bc794421b340dc6dbf0569 \
+            --project-id 175820916698d77c9ef940.96307178:master \
+            file download \
+            --format json \
+            --plural-format i18next \
+            --placeholder-format i18n \
+            --export-sort first_added \
+            --indentation 4sp \
+            --triggers github \
+            --unzip-to ./locales
