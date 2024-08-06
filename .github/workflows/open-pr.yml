@@ -11,6 +11,31 @@ jobs:
   process_translations:
     runs-on: ubuntu-latest
     steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - uses: nrwl/nx-set-shas@v3
+        id: last_successful_commit_push
+        with:
+          main-branch-name: ${{ steps.branch-name.outputs.current_branch }} # Get the last successful commit for the current branch.
+          last-successful-event: "push"
+
+      - name: Run changed-files with the commit of the last successful push event on current branch
+        id: changed-files-base-sha-push
+        uses: tj-actions/changed-files@v44
+        with:
+          base_sha: ${{ steps.last_successful_commit_push.outputs.base }}
+          files_yaml: |
+            locales:
+              - locales/it/*.json
+
+      - name: Show last successful commit push
+        run: echo "Last successful commit push: ${{ steps.last_successful_commit_push.outputs.base }}"
+
+      - name: List changed files
+        run: echo "${{ steps.changed-files-base-sha-push.outputs.locales_all_modified_files }}"
+
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
