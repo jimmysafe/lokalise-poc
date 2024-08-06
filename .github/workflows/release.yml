@@ -6,7 +6,8 @@ on:
     types:
       - closed
 jobs:
-  process_translations:
+  preparing:
+    name: Preparing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -18,6 +19,11 @@ jobs:
         run: |
           curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
 
+  process_translations:
+    needs: [preparing]
+    name: Merge Branch and Download Translations
+    runs-on: ubuntu-latest
+    steps:
       - name: Merge and Delete Branch
         uses: jimmysafe/lokalise-actions/translations-release@main-v1
         with:
