@@ -1,6 +1,6 @@
 import { Lokalise } from "../lokalize";
 
-const branch_name = "design";
+const branch_name = "feat/process2";
 const task_lang = "fr";
 
 const api = new Lokalise();
@@ -46,6 +46,44 @@ async function getprojectlangs() {
   console.log(JSON.stringify(res, null, 2));
 }
 
+async function getBranchUpdatedKeys() {
+  const res = await api.getUpdatedBranchKeys(branch_name);
+  console.log(JSON.stringify(res, null, 2));
+}
+
+// !PR OPEN
+async function openPR() {
+  try {
+    console.log("[CREATING BRANCH]");
+    const branch = await api.createBranch(branch_name);
+    console.log("[BRANCH CREATED]: ", branch.branch_id);
+    console.log("[UPLOADING FILES]");
+    const processes = await api.upload(branch_name);
+    console.log("[PROCESSED FILES]: ", processes);
+
+    console.log("[CHECKING PROCESS COMPLETION]");
+    let allCompleted = false;
+    do {
+      allCompleted = true; // Assume all processes are completed
+      for (const process of processes) {
+        const p = await api.getUploadProcessStatus(process, branch_name);
+        console.log(p.process_id, p.status);
+        if (p?.status !== "finished") {
+          allCompleted = false; // If any process is not finished, set to false
+        }
+      }
+    } while (!allCompleted);
+
+    console.log("[CREATING TASKS]");
+    const task = await api.createBranchTask(branch_name, task_lang);
+    console.log("[TASKS CREATED]: ", task?.task_id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// openPR();
+// getBranchUpdatedKeys();
 // getprojectlangs();
 // create_branch();
 // upload_files();

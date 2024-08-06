@@ -7,6 +7,7 @@ import {
   LokaliseApi,
   PaginatedResult,
   Project,
+  QueuedProcess,
   Task,
   UserGroup,
 } from "@lokalise/node-api";
@@ -26,6 +27,15 @@ export class Lokalise {
     this.api = new LokaliseApi({
       apiKey: env.lokalizeToken,
     });
+  }
+
+  async getUploadProcessStatus(
+    process_id: string,
+    branch_name: string
+  ): Promise<QueuedProcess> {
+    return this.api
+      .queuedProcesses()
+      .get(process_id, { project_id: `${env.projectId}:${branch_name}` });
   }
 
   async getProject(): Promise<Project> {
@@ -74,6 +84,7 @@ export class Lokalise {
   }
 
   async getUpdatedBranchKeys(branch_name: string): Promise<number[]> {
+    console.log(`${env.projectId}:${branch_name}`);
     const res = await lokaliseApi.keys().list({
       project_id: `${env.projectId}:${branch_name}`,
       filter_tags: branch_name,
@@ -170,7 +181,7 @@ export class Lokalise {
     return res;
   }
 
-  async upload(branch_name: string) {
+  async upload(branch_name: string): Promise<string[]> {
     try {
       const __root = path.resolve();
       const directoryPath = path.join(__root, "locales", "it");
@@ -187,6 +198,7 @@ export class Lokalise {
         return { fileName: file, base64Content };
       });
 
+      let processes = [];
       for (const file of base64Files) {
         const res = await lokaliseApi
           .files()
@@ -199,10 +211,12 @@ export class Lokalise {
             tags: [branch_name],
             cleanup_mode: true, // enables deleted keys to be removed from file
           });
-        console.log(file.fileName, res.status);
+        processes.push(res.process_id);
       }
+      return processes;
     } catch (error) {
       console.log(error);
+      return [];
     }
   }
 
