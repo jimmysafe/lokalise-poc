@@ -1,0 +1,21 @@
+name: Release Translations
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+jobs:
+  process_translations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: lokalise
+        uses: jimmysafe/lokalise-actions/translations-release@main-v1
+        with:
+          lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
+          lokaliseProjectId: 175820916698d77c9ef940.96307178
+          token: ${{ secrets.MY_TOKEN}}

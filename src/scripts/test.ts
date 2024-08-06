@@ -37,6 +37,16 @@ async function get_task() {
   console.log(JSON.stringify(res, null, 2));
 }
 
+async function getproject() {
+  const res = await api.getProject();
+  console.log(JSON.stringify(res, null, 2));
+}
+async function getprojectlangs() {
+  const res = await api.getProjectLanguages();
+  console.log(JSON.stringify(res, null, 2));
+}
+
+// getprojectlangs();
 // create_branch();
 // upload_files();
 // get_task();
