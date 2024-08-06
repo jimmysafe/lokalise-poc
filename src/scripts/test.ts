@@ -46,7 +46,7 @@ async function getprojectlangs() {
   console.log(JSON.stringify(res, null, 2));
 }
 
-// getprojectlangs();
+getprojectlangs();
 // create_branch();
 // upload_files();
 // get_task();
