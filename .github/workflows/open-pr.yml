@@ -38,3 +38,6 @@ jobs:
     steps:
       - name: lokalise
         uses: jimmysafe/lokalise-actions/translations-open-pr@main-v1
+        with:
+          lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
+          lokaliseProjectId: 175820916698d77c9ef940.96307178
