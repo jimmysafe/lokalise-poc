@@ -30,7 +30,7 @@ jobs:
               - locales/it/*.json
 
       - name: Show last successful commit push
-        run: echo "${{ steps.last_successful_commit_push.outputs.base }}"
+        run: echo "${{ github.event.pull_request.head.sha }}"
 
       - name: List changed files
         run: echo "${{ steps.changed-files-base-sha-push.outputs.locales_all_modified_files }}"
