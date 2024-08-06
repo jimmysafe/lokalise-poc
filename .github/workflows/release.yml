@@ -22,10 +22,11 @@ jobs:
           lokaliseProjectId: 175820916698d77c9ef940.96307178
           token: ${{ secrets.MY_TOKEN}}
 
+      - name: Install Lokalise CLI
+        uses: frenck/action-setup-lokalise@v1
+
       - name: Download Translations
         run: |
-          curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
-
           lokalise2 \
             --token f65180bcef55eb0fa6bc794421b340dc6dbf0569 \
             --project-id 175820916698d77c9ef940.96307178:master \
