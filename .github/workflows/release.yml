@@ -7,34 +7,42 @@ on:
       - closed
 jobs:
   process_translations:
-    name: Merge Branch and Download Translations
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    name: Release Translations
+    if: github.event.pull_request.merged == true
+    uses: jimmysafe/lokalise-actions/.github/workflows/release.yml@main-v1
+    secrets: inherit
+    with:
+      lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
+      lokaliseProjectId: 175820916698d77c9ef940.96307178
+#   process_translations:
+#     name: Merge Branch and Download Translations
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout source code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
 
-      - name: Merge and Delete Branch
-        uses: jimmysafe/lokalise-actions/translations-release@main-v1
-        with:
-          lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
-          lokaliseProjectId: 175820916698d77c9ef940.96307178
-          token: ${{ secrets.MY_TOKEN}}
+#       - name: Merge and Delete Branch
+#         uses: jimmysafe/lokalise-actions/translations-release@main-v1
+#         with:
+#           lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
+#           lokaliseProjectId: 175820916698d77c9ef940.96307178
+#           token: ${{ secrets.MY_TOKEN}}
 
-      - name: Install Lokalise CLI
-        uses: frenck/action-setup-lokalise@v1
+#       - name: Install Lokalise CLI
+#         uses: frenck/action-setup-lokalise@v1
 
-      - name: Download Translations
-        run: |
-          lokalise2 \
-            --token f65180bcef55eb0fa6bc794421b340dc6dbf0569 \
-            --project-id 175820916698d77c9ef940.96307178:master \
-            file download \
-            --format json \
-            --plural-format i18next \
-            --placeholder-format i18n \
-            --export-sort first_added \
-            --indentation 4sp \
-            --triggers github \
-            --unzip-to ./locales
+#       - name: Download Translations
+#         run: |
+#           lokalise2 \
+#             --token f65180bcef55eb0fa6bc794421b340dc6dbf0569 \
+#             --project-id 175820916698d77c9ef940.96307178:master \
+#             file download \
+#             --format json \
+#             --plural-format i18next \
+#             --placeholder-format i18n \
+#             --export-sort first_added \
+#             --indentation 4sp \
+#             --triggers github \
+#             --unzip-to ./locales
