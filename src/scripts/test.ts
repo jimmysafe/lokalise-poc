@@ -109,3 +109,5 @@ async function openPR() {
 // - upload files
 // - merge branch
 // - release S3
+
+api.master_files();

@@ -251,4 +251,30 @@ export class Lokalise {
         fs.rmSync(__temp, { force: true, recursive: true }); // Clean up the zip file after extraction
       });
   }
+
+  async master_files() {
+    const res = await lokaliseApi.files().download(`${env.projectId}:master`, {
+      format: "json",
+      original_filenames: true,
+      plural_format: "i18next",
+      placeholder_format: "i18n",
+      indentation: "4sp",
+    });
+
+    const zipUrl = res.bundle_url;
+    const __root = path.resolve();
+    const __locales = path.join(__root, "locales");
+    const __temp = path.join(__root, "temp");
+
+    const zipResponse = await fetch(zipUrl);
+    const zipBuffer = await zipResponse.buffer();
+
+    fs.mkdirSync(__temp);
+    const zipFilePath = path.join(__temp, "locales.zip");
+    fs.writeFileSync(zipFilePath, zipBuffer);
+
+    const directory = await unzipper.Open.file(zipFilePath);
+
+
+  }
 }
