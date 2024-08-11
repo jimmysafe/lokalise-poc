@@ -1,4 +1,4 @@
-name: Task has changed
+name: Task Status Changed
 on:
   workflow_dispatch:
     inputs:
@@ -9,8 +9,8 @@ on:
         type: string
         required: true
 jobs:
-  translation_approval:
-    uses: jimmysafe/lokalise-actions/.github/workflows/task-handler.yml@main-v1
+  tasks_changed:
+    uses: jimmysafe/lokalise-actions/.github/workflows/task-status-change.yml@main-v1
     secrets: inherit
     with:
       task_id: ${{ inputs.task_id }}
