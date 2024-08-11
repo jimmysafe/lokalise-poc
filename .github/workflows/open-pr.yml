@@ -8,6 +8,8 @@ on:
       - synchronize
 jobs:
   process_translations:
+    if: |
+      !contains(github.event.pull_request.labels.*.name , 'translations-check-ignore')
     name: Process Translations
     uses: jimmysafe/lokalise-actions/.github/workflows/open-pr.yml@main-v1
     secrets: inherit

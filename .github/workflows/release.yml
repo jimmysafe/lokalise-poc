@@ -8,9 +8,6 @@ on:
 jobs:
   process_translations:
     name: Release Translations
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name , 'translations-check-ignore')
     uses: jimmysafe/lokalise-actions/.github/workflows/release.yml@main-v1
     secrets: inherit
-    # with:
-    #   lokaliseApiToken: f65180bcef55eb0fa6bc794421b340dc6dbf0569
-    #   lokaliseProjectId: 175820916698d77c9ef940.96307178
