@@ -10,4 +10,6 @@
   - ✅ DESIRED OUTPUT: Un task per ogni commit con solo le modifiche fatte nel commit.
   - ADDITIONAL TESTS:
     - Modifica stringa approvata.
+      - ✅ DESIRED OUTPUT: crea un altro task con modifica.
     - Modifica stringa ancora non approvata.
+      - DESIRED OUTPUT: aggiorna task con stringa non ancora approvata
