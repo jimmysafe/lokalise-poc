@@ -12,4 +12,19 @@
     - Modifica stringa approvata.
       - ✅ DESIRED OUTPUT: crea un altro task con modifica.
     - Modifica stringa ancora non approvata.
-      - DESIRED OUTPUT: aggiorna task con stringa non ancora approvata
+      - ✅ DESIRED OUTPUT: aggiorna task con stringa non ancora approvata
+- Aggiunta stringhe con chiavi uguali
+
+  - Chiavi uguali stesso file (?)
+  - Chivai uguali file diversi
+
+  ### Automerge
+
+  - TODO: [capire rollback](https://excalidraw.com/#json=MTtrTUVswpqGtKWIkRgNF,voTsu5rFY2HLRhdmgVJjkQ)
+  - TODO: Controllo conflitti
+    - Esempio: su branch A facciamo modifica a una chiave, su branch B facciamo modifica diversa su stessa chiave, Mergiamo B.. cosa succede?
+      - DESIRED OUTPUT: Vince l'ultimo mergiato.
+
+  ### [TODO] Flusso Design
+
+  figma -> AGGIUNGERE/MODIFICARE/ELIMINARE CHIAVI -> push to design branch
