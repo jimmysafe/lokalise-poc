@@ -1,0 +1,8 @@
+name: Manual Release Translations
+on:
+  workflow_dispatch:
+jobs:
+  process_translations:
+    name: Manual Release Translations
+    uses: jimmysafe/lokalise-actions/.github/workflows/manual-release.yml@main-v1
+    secrets: inherit
