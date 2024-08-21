@@ -16,7 +16,7 @@
 - Aggiunta stringhe con chiavi uguali
 
   - Chiavi uguali stesso file (?)
-  - Chivai uguali file diversi
+  - Chiavi uguali file diversi
 
   ### Automerge
 
